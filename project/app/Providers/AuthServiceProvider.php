@@ -33,9 +33,15 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        Passport::tokensCan([
-            'read' => 'Read access on tfw api.',
-            'write' => 'Write access on tfw api.'
-        ]);
+        $scopes = [
+            'Read' => 'Read access.',
+            'Write' => 'Write access.',
+        ];
+
+        foreach (Passport::scopes()->toArray() as $scope) {
+            $scopes[$scope['id']] = $scope['description'];
+        }
+
+        Passport::tokensCan($scopes);
     }
 }

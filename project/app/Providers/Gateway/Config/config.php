@@ -3,6 +3,7 @@
 use App\Providers\Gateway\Mapper\GatewayHttpMethodMapper;
 
 return [
+    'scopes' => [],
     'services' => [
         'data' => [
             'scheme' => 'https',
@@ -13,7 +14,8 @@ return [
                 GatewayHttpMethodMapper::HTTP_METHOD_POST,
                 GatewayHttpMethodMapper::HTTP_METHOD_PUT
             ],
-            'events' => []
+            'events' => [],
+            'scopesByRoute' => []
         ]
     ]
 ];

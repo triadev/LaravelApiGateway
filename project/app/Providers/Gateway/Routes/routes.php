@@ -8,6 +8,7 @@ Route::group([
     ],
     'middleware' => [
         'api',
+        'gateway.route.scopes',
         'gateway.service.exist',
         'gateway.service.http_method',
         'gateway.event.trigger'

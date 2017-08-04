@@ -30,6 +30,11 @@ class GatewayServiceModel
     private $events = [];
 
     /**
+     * @var array
+     */
+    private $scopesByRoute = [];
+
+    /**
      * GatewayServiceModel constructor.
      * @param array $config
      */
@@ -38,6 +43,7 @@ class GatewayServiceModel
         $this->http_methods = $config['http_methods'];
         $this->timeout = $config['timeout'];
         $this->events = $config['events'];
+        $this->scopesByRoute = $config['scopesByRoute'];
 
         $this->buildUrl($config['scheme'], $config['host'], $config['port']);
     }
@@ -102,5 +108,13 @@ class GatewayServiceModel
         }
 
         return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getScopesByRoute(): array
+    {
+        return $this->scopesByRoute;
     }
 }

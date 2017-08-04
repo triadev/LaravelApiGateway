@@ -4,10 +4,12 @@ namespace App\Providers\Gateway\Provider;
 use App\Providers\Gateway\Contract\GatewayContract;
 use App\Providers\Gateway\Gateway;
 use App\Providers\Gateway\Middleware\GatewayEventTrigger;
+use App\Providers\Gateway\Middleware\GatewayRouteScopes;
 use App\Providers\Gateway\Middleware\GatewayServiceExist;
 use App\Providers\Gateway\Middleware\GatewayServiceHttpMethods;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laravel\Passport\Passport;
 
 /**
  * Class ServiceProvider
@@ -34,6 +36,9 @@ class ServiceProvider extends BaseServiceProvider
 
         // Routes
         $this->loadRoutesFrom(__DIR__ . '/../Routes/routes.php');
+
+        // Passport
+        Passport::tokensCan(config('gateway')['scopes']);
     }
 
     /**
@@ -49,6 +54,7 @@ class ServiceProvider extends BaseServiceProvider
         $router->aliasMiddleware('gateway.service.exist', GatewayServiceExist::class);
         $router->aliasMiddleware('gateway.service.http_method', GatewayServiceHttpMethods::class);
         $router->aliasMiddleware('gateway.event.trigger', GatewayEventTrigger::class);
+        $router->aliasMiddleware('gateway.route.scopes', GatewayRouteScopes::class);
 
         $this->app->singleton(GatewayContract::class, function () {
             return new Gateway();
