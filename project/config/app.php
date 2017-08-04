@@ -170,6 +170,8 @@ return [
         \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \SocialEngine\SnifferRules\ServiceProvider::class,
         \Barryvdh\Debugbar\ServiceProvider::class,
+        \Triadev\Logger\Provider\LoggerServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
         /*
          * Application Service Providers...
