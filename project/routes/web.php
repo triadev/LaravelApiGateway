@@ -5,10 +5,10 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     // Build the query parameter string to pass auth information to our request
     $query = http_build_query([
-        'client_id' => 1,
+        'client_id' => 2,
         'redirect_uri' => 'http://gateway.dev/callback',
         'response_type' => 'code',
-        'scope' => 'write'
+        'scope' => 'read write'
     ]);
 
     // Redirect the user to the OAuth authorization page
@@ -21,8 +21,8 @@ Route::get('callback', function (Request $request) {
     $response = $http->post('http://192.168.48.1/oauth/token', [
         'form_params' => [
             'grant_type' => 'authorization_code',
-            'client_id' => 1,
-            'client_secret' => '4LTA6b1I6WqGNk2S4BW26IUzO086BQbdIm1aFnbn',
+            'client_id' => 2,
+            'client_secret' => 'IPI9aiXxuLMNkjAeBJkItqd3SgcdPPkiN63CTBUB',
             'redirect_uri' => 'http://gateway.dev/callback',
             'code' => $request->code //
         ]

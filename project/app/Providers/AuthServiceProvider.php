@@ -34,8 +34,8 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 
         $scopes = [
-            'Read' => 'Read access.',
-            'Write' => 'Write access.',
+            'read' => 'Read access.',
+            'write' => 'Write access.',
         ];
 
         foreach (Passport::scopes()->toArray() as $scope) {
