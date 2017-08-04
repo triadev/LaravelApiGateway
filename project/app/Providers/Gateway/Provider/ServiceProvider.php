@@ -3,6 +3,7 @@ namespace App\Providers\Gateway\Provider;
 
 use App\Providers\Gateway\Contract\GatewayContract;
 use App\Providers\Gateway\Gateway;
+use App\Providers\Gateway\Middleware\GatewayEventTrigger;
 use App\Providers\Gateway\Middleware\GatewayServiceExist;
 use App\Providers\Gateway\Middleware\GatewayServiceHttpMethods;
 use Illuminate\Routing\Router;
@@ -47,6 +48,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $router->aliasMiddleware('gateway.service.exist', GatewayServiceExist::class);
         $router->aliasMiddleware('gateway.service.http_method', GatewayServiceHttpMethods::class);
+        $router->aliasMiddleware('gateway.event.trigger', GatewayEventTrigger::class);
 
         $this->app->singleton(GatewayContract::class, function () {
             return new Gateway();

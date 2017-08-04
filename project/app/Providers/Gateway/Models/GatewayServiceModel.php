@@ -25,6 +25,11 @@ class GatewayServiceModel
     private $timeout;
 
     /**
+     * @var array
+     */
+    private $events = [];
+
+    /**
      * GatewayServiceModel constructor.
      * @param array $config
      */
@@ -32,6 +37,7 @@ class GatewayServiceModel
     {
         $this->http_methods = $config['http_methods'];
         $this->timeout = $config['timeout'];
+        $this->events = $config['events'];
 
         $this->buildUrl($config['scheme'], $config['host'], $config['port']);
     }
@@ -75,5 +81,26 @@ class GatewayServiceModel
     public function getTimeout(): int
     {
         return $this->timeout;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEvents(): array
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param string $key
+     * @return null|string
+     */
+    public function getEvent(string $key): ?string
+    {
+        if (array_key_exists($key, $this->events)) {
+            return $this->events[$key];
+        }
+
+        return null;
     }
 }

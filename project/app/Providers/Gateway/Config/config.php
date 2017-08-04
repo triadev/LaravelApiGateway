@@ -12,7 +12,8 @@ return [
             'http_methods' => [
                 GatewayHttpMethodMapper::HTTP_METHOD_POST,
                 GatewayHttpMethodMapper::HTTP_METHOD_PUT
-            ]
+            ],
+            'events' => []
         ]
     ]
 ];

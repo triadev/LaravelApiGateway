@@ -9,7 +9,8 @@ Route::group([
     'middleware' => [
         'api',
         'gateway.service.exist',
-        'gateway.service.http_method'
+        'gateway.service.http_method',
+        'gateway.event.trigger'
     ]
 ], function () {
 
