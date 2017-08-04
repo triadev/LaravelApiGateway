@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+/**
+ * Class HomeController
+ *
+ * @author Christopher Lorke <lorke@traum-ferienwohnungen.de>
+ * @package App\Http\Controllers
+ */
 class HomeController extends Controller
 {
     /**

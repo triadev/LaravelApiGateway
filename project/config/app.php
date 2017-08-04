@@ -172,6 +172,7 @@ return [
         \Barryvdh\Debugbar\ServiceProvider::class,
         \Triadev\Logger\Provider\LoggerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        \App\Providers\Gateway\Provider\ServiceProvider::class,
 
         /*
          * Application Service Providers...
