@@ -1,4 +1,7 @@
 # Laravel-Api-Gateway
+
+[![Software license][ico-license]](LICENSE)
+
 The API gateway in the microservice architecture represents a central entry point.
 
 ## Status of the project
