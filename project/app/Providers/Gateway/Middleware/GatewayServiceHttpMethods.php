@@ -5,6 +5,7 @@ use App\Providers\Gateway\Repository\GatewayConfigRepository;
 use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\Response;
+use PrometheusExporter;
 
 /**
  * Class GatewayServiceHttpMethods
@@ -26,6 +27,8 @@ class GatewayServiceHttpMethods
         $service = $request->route()->parameter('service');
 
         if (!$this->existHttpMethod(new GatewayConfigRepository(), $service, $request->method())) {
+            PrometheusExporter::incCounter('gateway_error_http_method_not_accept', 'Metric: http method not accept');
+
             return new Response([
                 'status' => 'ERROR',
                 'result' => [

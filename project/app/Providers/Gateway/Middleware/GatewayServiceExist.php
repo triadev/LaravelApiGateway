@@ -5,6 +5,7 @@ use App\Providers\Gateway\Repository\GatewayConfigRepository;
 use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\Response;
+use PrometheusExporter;
 
 /**
  * Class GatewayServiceExist
@@ -26,6 +27,8 @@ class GatewayServiceExist
         $service = $request->route()->parameter('service');
 
         if (!$this->existService(new GatewayConfigRepository(), $service)) {
+            PrometheusExporter::incCounter('gateway_error_service_not_exist', 'Metric: service not exist');
+
             return new Response([
                 'status' => 'ERROR',
                 'result' => [

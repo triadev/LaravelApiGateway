@@ -173,7 +173,6 @@ return [
         \Triadev\Logger\Provider\LoggerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         \App\Providers\Gateway\Provider\ServiceProvider::class,
-        \Triadev\PrometheusExporter\Provider\PrometheusExporterServiceProvider::class,
         \App\Providers\PassportExtension\Provider\ServiceProvider::class,
 
         /*

@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Closure;
 use Laravel\Passport\Exceptions\MissingScopeException;
+use PrometheusExporter;
 
 /**
  * Class GatewayRouteScopes
@@ -55,6 +56,15 @@ class GatewayRouteScopes
             if (preg_match("/{$route}/", $endpoint)) {
                 foreach ($scopes as $scope) {
                     if (!$user->tokenCan($scope)) {
+                        PrometheusExporter::incCounter(
+                            sprintf(
+                                "gateway_error_%s_scope_%s",
+                                $service,
+                                $scope
+                            ),
+                            "Metric: scope not found in access token"
+                        );
+
                         throw new MissingScopeException($scope);
                     }
                 }

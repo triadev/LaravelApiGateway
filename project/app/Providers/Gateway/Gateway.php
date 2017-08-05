@@ -7,6 +7,7 @@ use App\Providers\Gateway\Models\GatewayServiceModel;
 use App\Providers\Gateway\Repository\GatewayConfigRepository;
 use App\User;
 use Illuminate\Http\Response;
+use PrometheusExporter;
 
 /**
  * Class Gateway
@@ -37,15 +38,20 @@ class Gateway implements GatewayContract
     ): Response {
         $gatewayConfigRepository = new GatewayConfigRepository();
 
-        /** @var GatewayServiceModel $service */
-        $service = $gatewayConfigRepository->getService($service);
+        /** @var GatewayServiceModel $serviceModel */
+        $serviceModel = $gatewayConfigRepository->getService($service);
 
         $response = $this->curl(
-            $this->buildRequestUrl($service->getUrl(), $endpoint),
+            $this->buildRequestUrl($serviceModel->getUrl(), $endpoint),
             $httpMethod,
-            $service->getTimeout(),
+            $serviceModel->getTimeout(),
             $header,
             $payload
+        );
+
+        PrometheusExporter::incCounter(
+            sprintf("gateway_dispatch_%s_endpoint_%s", $service, preg_replace('/[^A-Za-z0-9\-]/', '', $endpoint)),
+            "Metric: dispatch by endpoint from service"
         );
 
         return $response;
@@ -118,7 +124,14 @@ class Gateway implements GatewayContract
             $result = curl_error($curl);
         }
 
-        $http_status_code = curl_getinfo($curl)['http_code'];
+        $curlInfo = curl_getinfo($curl);
+        $http_status_code = $curlInfo['http_code'];
+
+        PrometheusExporter::setHistogram('gateway_curl_total_time', '', $curlInfo['total_time']);
+        PrometheusExporter::setHistogram('gateway_curl_namelookup_time', '', $curlInfo['namelookup_time']);
+        PrometheusExporter::setHistogram('gateway_curl_connect_time', '', $curlInfo['connect_time']);
+        PrometheusExporter::setHistogram('gateway_curl_pretransfer_time', '', $curlInfo['pretransfer_time']);
+        PrometheusExporter::setHistogram('gateway_curl_starttransfer_time', '', $curlInfo['starttransfer_time']);
 
         curl_close($curl);
 

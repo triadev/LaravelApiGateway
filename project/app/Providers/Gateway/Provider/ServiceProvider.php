@@ -10,6 +10,7 @@ use App\Providers\Gateway\Middleware\GatewayServiceHttpMethods;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Laravel\Passport\Passport;
+use Triadev\PrometheusExporter\Provider\PrometheusExporterServiceProvider;
 
 /**
  * Class ServiceProvider
@@ -48,6 +49,8 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
+        $this->app->register(PrometheusExporterServiceProvider::class);
+
         /** @var Router $router */
         $router = $this->app['router'];
 

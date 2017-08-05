@@ -25,20 +25,20 @@ class GatewayController extends Controller
      */
     public function gateway(Request $request, string $service, string $endpoint) : Response
     {
-        /*PrometheusExporter::incCounter(
+        PrometheusExporter::incCounter(
             sprintf("gateway_%s", $service),
             "Metrics by service"
         );
 
         PrometheusExporter::incCounter(
-            sprintf("gateway_%s_%s", $service, strtolower($request->method())),
+            sprintf("gateway_%s_http_method_%s", $service, strtolower($request->method())),
             "Metrics by http method from service"
         );
 
         PrometheusExporter::incCounter(
-            sprintf("gateway_%s_%s", $service, $endpoint),
+            sprintf("gateway_%s_endpoint_%s", $service, preg_replace('/[^A-Za-z0-9\-]/', '', $endpoint)),
             "Metrics by endpoint from service"
-        );*/
+        );
 
         /** @var GatewayContract $gatewayService */
         $gatewayService = app(GatewayContract::class);

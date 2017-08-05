@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Closure;
 use Illuminate\Http\Response;
+use PrometheusExporter;
 
 /**
  * Class GatewayEventTrigger
@@ -64,24 +65,42 @@ class GatewayEventTrigger
         $serviceConfig = (new GatewayConfigRepository())->getService($service);
         if ($serviceConfig) {
             $responseContent = json_decode($this->response->content(), true);
-            if (array_key_exists('_events', $responseContent)) {
-                foreach ($responseContent['_events'] as $eventKey => $eventPayload) {
-                    $event = $serviceConfig->getEvent($eventKey);
-                    if ($event) {
-                        /** @var GatewayEvent $eventClass */
-                        $eventClass = new $event();
-                        if ($eventClass instanceof GatewayEvent) {
-                            $result = $eventClass->trigger($user->getAttribute('id'), $eventPayload);
-                            if (!$result) {
-                                break;
+            if (is_array($responseContent)) {
+                if (array_key_exists('_events', $responseContent)) {
+                    foreach ($responseContent['_events'] as $eventKey => $eventPayload) {
+                        $event = $serviceConfig->getEvent($eventKey);
+                        if ($event) {
+                            /** @var GatewayEvent $eventClass */
+                            $eventClass = new $event();
+                            if ($eventClass instanceof GatewayEvent) {
+                                PrometheusExporter::incCounter(
+                                    sprintf(
+                                        "gateway_event_%s",
+                                        $eventKey
+                                    ),
+                                    "Metric: event was triggered"
+                                );
+
+                                $result = $eventClass->trigger($user->getAttribute('id'), $eventPayload);
+                                if (!$result) {
+                                    PrometheusExporter::incCounter(
+                                        sprintf(
+                                            "gateway_error_event_%s",
+                                            $eventKey
+                                        ),
+                                        "Metric: error in the running of an event"
+                                    );
+
+                                    break;
+                                }
                             }
                         }
                     }
+
+                    unset($responseContent['_events']);
+
+                    $this->response->setContent(json_encode($responseContent));
                 }
-
-                unset($responseContent['_events']);
-
-                $this->response->setContent(json_encode($responseContent));
             }
         }
 
