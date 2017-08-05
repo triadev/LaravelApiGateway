@@ -1,45 +1,45 @@
 version: '2'
 services:
-  nginx:
-    container_name: gateway_nginx
-    build:
-      context: .
-      dockerfile: deploy/dev/build/nginx/Dockerfile
-    networks:
-      - default
-    depends_on:
-      - fpm
-    ports:
-      - "80:80"
-    volumes:
-      - ./project/:/var/www/html
-    environment:
-      - SERVER_NAME=gateway.de.dev
-      - FPM_PORT_9000_TCP_ADDR=fpm
-      - FPM_PORT_9000_TCP_PORT=9000
+    nginx:
+        container_name: gateway_nginx
+        build:
+            context: .
+            dockerfile: deploy/dev/build/nginx/Dockerfile
+        networks:
+        - default
+        depends_on:
+        - fpm
+        ports:
+        - "80:80"
+        volumes:
+        - ./project/:/var/www/html
+        environment:
+        - SERVER_NAME=gateway.de.dev
+        - FPM_PORT_9000_TCP_ADDR=fpm
+        - FPM_PORT_9000_TCP_PORT=9000
 
-  fpm:
-    container_name: gateway_fpm
-    build:
-      context: .
-      dockerfile: deploy/dev/build/fpm/Dockerfile
-    networks:
-      - default
-    volumes:
-      - ./project/:/var/www/html
-    env_file:
-      - ./deploy/dev/env/gateway.env
+    fpm:
+        container_name: gateway_fpm
+        build:
+            context: .
+            dockerfile: deploy/dev/build/fpm/Dockerfile
+        networks:
+        - default
+        volumes:
+        - ./project/:/var/www/html
+        env_file:
+        - ./deploy/dev/env/gateway.env
 
-  mysql:
-    container_name: gateway_mysql
-    image: mysql:5.7.16
-    networks:
-      - default
-    ports:
-      - "3306:3306"
-    env_file:
-      - ./deploy/dev/env/gateway.env
+    mysql:
+        container_name: gateway_mysql
+        image: mysql:5.7.16
+        networks:
+        - default
+        ports:
+        - "3306:3306"
+        env_file:
+        - ./deploy/dev/env/gateway.env
 
 networks:
-  default:
-    driver: bridge
+    default:
+        driver: bridge

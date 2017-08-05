@@ -1,2 +1,3 @@
 .idea
 deploy
+docker-compose.yml
