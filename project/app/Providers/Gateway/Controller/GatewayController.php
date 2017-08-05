@@ -2,10 +2,10 @@
 namespace App\Providers\Gateway\Controller;
 
 use App\Providers\Gateway\Contract\GatewayContract;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use PrometheusExporter;
 
 /**
  * Class GatewayController
@@ -25,6 +25,21 @@ class GatewayController extends Controller
      */
     public function gateway(Request $request, string $service, string $endpoint) : Response
     {
+        /*PrometheusExporter::incCounter(
+            sprintf("gateway_%s", $service),
+            "Metrics by service"
+        );
+
+        PrometheusExporter::incCounter(
+            sprintf("gateway_%s_%s", $service, strtolower($request->method())),
+            "Metrics by http method from service"
+        );
+
+        PrometheusExporter::incCounter(
+            sprintf("gateway_%s_%s", $service, $endpoint),
+            "Metrics by endpoint from service"
+        );*/
+
         /** @var GatewayContract $gatewayService */
         $gatewayService = app(GatewayContract::class);
 

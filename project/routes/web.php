@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
+Route::get('auth', function () {
     // Build the query parameter string to pass auth information to our request
     $query = http_build_query([
         'client_id' => 2,
@@ -22,7 +22,7 @@ Route::get('callback', function (Request $request) {
         'form_params' => [
             'grant_type' => 'authorization_code',
             'client_id' => 2,
-            'client_secret' => 'IPI9aiXxuLMNkjAeBJkItqd3SgcdPPkiN63CTBUB',
+            'client_secret' => 'ihFiglrz7GhiktMLPorEMEnVfrhi7WzQ2ji4YKge',
             'redirect_uri' => 'http://gateway.dev/callback',
             'code' => $request->code //
         ]
@@ -34,4 +34,4 @@ Route::get('callback', function (Request $request) {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('', 'HomeController@index')->name('home');

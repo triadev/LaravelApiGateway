@@ -14,7 +14,7 @@
             <div class="panel-heading">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span>
-                        OAuth Clients
+                        Personal Access Clients
                     </span>
 
                     <a class="action-link" @click="showCreateClientForm">
@@ -26,58 +26,58 @@
             <div class="panel-body">
                 <!-- Current Clients -->
                 <p class="m-b-none" v-if="clients.length === 0">
-                    You have not created any OAuth clients.
+                    You have not created any Personal Access clients.
                 </p>
 
                 <table class="table table-borderless m-b-none" v-if="clients.length > 0">
                     <thead>
-                        <tr>
-                            <th>Client ID</th>
-                            <th>Name</th>
-                            <th>Secret</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                    <tr>
+                        <th>Client ID</th>
+                        <th>Name</th>
+                        <th>Secret</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                     </thead>
 
                     <tbody>
-                        <tr v-for="client in clients">
-                            <!-- ID -->
-                            <td style="vertical-align: middle;">
-                                {{ client.id }}
-                            </td>
+                    <tr v-for="client in clients">
+                        <!-- ID -->
+                        <td style="vertical-align: middle;">
+                            {{ client.id }}
+                        </td>
 
-                            <!-- Name -->
-                            <td style="vertical-align: middle;">
-                                {{ client.name }}
-                            </td>
+                        <!-- Name -->
+                        <td style="vertical-align: middle;">
+                            {{ client.name }}
+                        </td>
 
-                            <!-- Secret -->
-                            <td style="vertical-align: middle;">
-                                <code>{{ client.secret }}</code>
-                            </td>
+                        <!-- Secret -->
+                        <td style="vertical-align: middle;">
+                            <code>{{ client.secret }}</code>
+                        </td>
 
-                            <!-- Edit Button -->
-                            <td style="vertical-align: middle;">
-                                <a class="action-link" @click="edit(client)">
-                                    Edit
-                                </a>
-                            </td>
+                        <!-- Edit Button -->
+                        <td style="vertical-align: middle;">
+                            <a class="action-link" @click="edit(client)">
+                                Edit
+                            </a>
+                        </td>
 
-                            <!-- Delete Button -->
-                            <td style="vertical-align: middle;">
-                                <a class="action-link text-danger" @click="destroy(client)">
-                                    Delete
-                                </a>
-                            </td>
-                        </tr>
+                        <!-- Delete Button -->
+                        <td style="vertical-align: middle;">
+                            <a class="action-link text-danger" @click="destroy(client)">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
         <!-- Create Client Modal -->
-        <div class="modal fade" id="modal-create-client" tabindex="-1" role="dialog">
+        <div class="modal fade" id="modal-create-personal-access-client" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -102,30 +102,30 @@
 
                         <!-- Create Client Form -->
                         <form class="form-horizontal" role="form">
+                            <!-- User-ID -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">User-ID</label>
+
+                                <div class="col-md-7">
+                                    <input id="create-personal-access-client-userid" type="text" class="form-control"
+                                           @keyup.enter="store" v-model="createForm.user_id" disabled>
+
+                                    <span class="help-block">
+                                        User-ID
+                                    </span>
+                                </div>
+                            </div>
+
                             <!-- Name -->
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>
 
                                 <div class="col-md-7">
-                                    <input id="create-client-name" type="text" class="form-control"
-                                                                @keyup.enter="store" v-model="createForm.name">
+                                    <input id="create-personal-access-client-name" type="text" class="form-control"
+                                           @keyup.enter="store" v-model="createForm.name">
 
                                     <span class="help-block">
                                         Something your users will recognize and trust.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Redirect URL -->
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Redirect URL</label>
-
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" name="redirect"
-                                                    @keyup.enter="store" v-model="createForm.redirect">
-
-                                    <span class="help-block">
-                                        Your application's authorization callback URL.
                                     </span>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
         </div>
 
         <!-- Edit Client Modal -->
-        <div class="modal fade" id="modal-edit-client" tabindex="-1" role="dialog">
+        <div class="modal fade" id="modal-edit-personal-access-client" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -170,30 +170,30 @@
 
                         <!-- Edit Client Form -->
                         <form class="form-horizontal" role="form">
+                            <!-- User-ID -->
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">User-ID</label>
+
+                                <div class="col-md-7">
+                                    <input id="edit-personal-access-client-userid" type="text" class="form-control"
+                                           @keyup.enter="store" v-model="createForm.user_id" disabled>
+
+                                    <span class="help-block">
+                                        User-ID
+                                    </span>
+                                </div>
+                            </div>
+
                             <!-- Name -->
                             <div class="form-group">
                                 <label class="col-md-3 control-label">Name</label>
 
                                 <div class="col-md-7">
-                                    <input id="edit-client-name" type="text" class="form-control"
-                                                                @keyup.enter="update" v-model="editForm.name">
+                                    <input id="edit-personal-access-client-name" type="text" class="form-control"
+                                           @keyup.enter="update" v-model="editForm.name">
 
                                     <span class="help-block">
                                         Something your users will recognize and trust.
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Redirect URL -->
-                            <div class="form-group">
-                                <label class="col-md-3 control-label">Redirect URL</label>
-
-                                <div class="col-md-7">
-                                    <input type="text" class="form-control" name="redirect"
-                                                    @keyup.enter="update" v-model="editForm.redirect">
-
-                                    <span class="help-block">
-                                        Your application's authorization callback URL.
                                     </span>
                                 </div>
                             </div>
@@ -226,13 +226,13 @@
                 createForm: {
                     errors: [],
                     name: '',
-                    redirect: ''
+                    user_id: ''
                 },
 
                 editForm: {
                     errors: [],
                     name: '',
-                    redirect: ''
+                    user_id: ''
                 }
             };
         },
@@ -258,12 +258,12 @@
             prepareComponent() {
                 this.getClients();
 
-                $('#modal-create-client').on('shown.bs.modal', () => {
-                    $('#create-client-name').focus();
+                $('#modal-create-personal-access-client').on('shown.bs.modal', () => {
+                    $('#create-personal-access-client-name').focus();
                 });
 
-                $('#modal-edit-client').on('shown.bs.modal', () => {
-                    $('#edit-client-name').focus();
+                $('#modal-edit-personal-access-client').on('shown.bs.modal', () => {
+                    $('#edit-personal-access-client-name').focus();
                 });
             },
 
@@ -271,17 +271,19 @@
              * Get all of the OAuth clients for the user.
              */
             getClients() {
-                axios.get('/oauth/extended/clients')
-                        .then(response => {
-                            this.clients = response.data;
-                        });
+                axios.get('/oauth/extended/personal-access-clients')
+                    .then(response => {
+                        this.clients = response.data['clients'];
+                        this.createForm.user_id = response.data['userId'];
+                        this.editForm.user_id = response.data['userId'];
+                    });
             },
 
             /**
              * Show the form for creating new clients.
              */
             showCreateClientForm() {
-                $('#modal-create-client').modal('show');
+                $('#modal-create-personal-access-client').modal('show');
             },
 
             /**
@@ -289,8 +291,8 @@
              */
             store() {
                 this.persistClient(
-                    'post', '/oauth/clients',
-                    this.createForm, '#modal-create-client'
+                    'post', '/oauth/extended/personal-access-clients',
+                    this.createForm, '#modal-create-personal-access-client'
                 );
             },
 
@@ -300,9 +302,8 @@
             edit(client) {
                 this.editForm.id = client.id;
                 this.editForm.name = client.name;
-                this.editForm.redirect = client.redirect;
 
-                $('#modal-edit-client').modal('show');
+                $('#modal-edit-personal-access-client').modal('show');
             },
 
             /**
@@ -310,8 +311,8 @@
              */
             update() {
                 this.persistClient(
-                    'put', '/oauth/clients/' + this.editForm.id,
-                    this.editForm, '#modal-edit-client'
+                    'put', '/oauth/extended/personal-access-clients/' + this.editForm.id,
+                    this.editForm, '#modal-edit-personal-access-client'
                 );
             },
 
@@ -325,8 +326,8 @@
                     .then(response => {
                         this.getClients();
 
+                        form.user_id = '';
                         form.name = '';
-                        form.redirect = '';
                         form.errors = [];
 
                         $(modal).modal('hide');
@@ -344,10 +345,10 @@
              * Destroy the given client.
              */
             destroy(client) {
-                axios.delete('/oauth/clients/' + client.id)
-                        .then(response => {
-                            this.getClients();
-                        });
+                axios.delete('/oauth/extended/personal-access-clients/' + client.id)
+                    .then(response => {
+                        this.getClients();
+                    });
             }
         }
     }

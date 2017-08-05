@@ -21,6 +21,11 @@ Vue.component(
 );
 
 Vue.component(
+    'passport-personal-access-clients',
+    require('./components/passport/PersonalAccessClients.vue')
+);
+
+Vue.component(
     'passport-authorized-clients',
     require('./components/passport/AuthorizedClients.vue')
 );

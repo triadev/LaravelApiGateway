@@ -9,7 +9,8 @@
         "laravel/framework": "5.4.*",
         "laravel/passport": "^3.0",
         "laravel/tinker": "~1.0",
-        "triadev/laravel-logger-provider": "dev-master"
+        "triadev/laravel-logger-provider": "dev-master",
+        "triadev/laravel-prometheus-exporter": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -23,6 +24,10 @@
         {
             "type": "git",
             "url": "https://github.com/triadev/LaravelLoggerProvider.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/triadev/LaravelPrometheusExporter.git"
         }
     ],
     "autoload": {

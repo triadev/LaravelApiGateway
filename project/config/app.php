@@ -173,6 +173,8 @@ return [
         \Triadev\Logger\Provider\LoggerServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         \App\Providers\Gateway\Provider\ServiceProvider::class,
+        \Triadev\PrometheusExporter\Provider\PrometheusExporterServiceProvider::class,
+        \App\Providers\PassportExtension\Provider\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -219,6 +221,7 @@ return [
         'Mail' => Illuminate\Support\Facades\Mail::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
+        'PrometheusExporter' => \Triadev\PrometheusExporter\Facade\PrometheusExporterFacade::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
