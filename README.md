@@ -58,7 +58,7 @@ If an account already exists:
 > http://gateway.dev/login
 
 ### Token
-There are two methods available to create a token:
+After the login there are two methods available to create a token:
 * OAuth
 * Personal Access
 
